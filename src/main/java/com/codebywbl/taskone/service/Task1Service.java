@@ -30,8 +30,8 @@ public class Task1Service {
         return userImp.findUserByName(name);
     }
 
-    public User findUserByAge(Integer age){
-        return userImp.findUserByAge(age);
+    public List<User> findUserByAge(Integer age1,Integer age2){
+        return userImp.findUserByAge(age1,age2);
     }
 
     public User findUserByHobby(String hobby){

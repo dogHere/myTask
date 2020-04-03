@@ -25,7 +25,8 @@ public class Task1Controller {
         task1Service.insertUser(user);
         return user;
     }
-    //将前台数据封装到对应的javabean
+    //将前台数据封装到对应的javabean(由于存在map等集合类型数据，不能完成自动封装)
+    //该段代码意为：非基本字段（id,name,age,address,hobby）的数据，都认为是对象集合属性(description)中的数据
     private User getUser(HttpServletRequest request, User user) {
         //得到参数map
         Map<String, String[]> map = request.getParameterMap();
@@ -72,12 +73,14 @@ public class Task1Controller {
         return user;
     }
 
+    //根据id查找数据
     @RequestMapping(value = "/findUserById",method = RequestMethod.GET)
     public User findUserById(@RequestParam(value = "id") String id) {
         System.out.println(id);
         return task1Service.findUserById(id);
     }
 
+    //根据用户id，去更改数据库中id为对应值数据
     @RequestMapping(value = "/updateUser",method = RequestMethod.POST)
     public int updateUser(HttpServletRequest request) {
         User user = new User();
@@ -85,21 +88,25 @@ public class Task1Controller {
         return task1Service.updateUser(user);
     }
 
+    //根据name查找数据
     @RequestMapping(value = "/findUserByName",method = RequestMethod.GET)
     public User findUserByName(@RequestParam("name") String name){
         return task1Service.findUserByName(name);
     }
 
+    //根据年龄去查询，url中接受两个参数age1，age2，会根据两个数，查询出大于小的数并且小于大的数的用户集合
     @RequestMapping(value = "/findUserByAge",method = RequestMethod.GET)
-    public User findUserByAge(@RequestParam("age") Integer age){
-        return task1Service.findUserByAge(age);
+    public List<User> findUserByAge(@RequestParam("age1") Integer age1,@RequestParam("age2") Integer age2){
+        return task1Service.findUserByAge(age1>age2?age2:age1,age2>age1?age2:age1);
     }
 
+    //根据hobby中的值，去数据库查询对应的数据
     @RequestMapping(value = "/findUserByHobby",method = RequestMethod.GET)
     public User findUserByHobby(@RequestParam("hobby") String hobby){
         return task1Service.findUserByHobby(hobby);
     }
 
+    //根据用户输入的数据，去数据库中查询description的子数据中是否有对应的值
     @RequestMapping(value = "/description",method = RequestMethod.GET)
     public User findUserByDescription(HttpServletRequest request){
         String name = null;

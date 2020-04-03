@@ -31,13 +31,6 @@ public class Task2Controller {
         int i = 10 / 0;
     }
 
-    //测试
-    @RequestMapping("/img")
-    public String img(){
-        return "index";
-    }
-
-
     //在index.ftl页面加载完成之后，通过ajax发送请求，获取信息
     @RequestMapping("/index1")
     @ResponseBody
@@ -96,6 +89,7 @@ public class Task2Controller {
         task2Service.update(user);
     }
 
+    //根据输入条件查询数据
     @RequestMapping(value = "/check",method = RequestMethod.GET)
     @ResponseBody
     public List<User> check(HttpServletRequest request){

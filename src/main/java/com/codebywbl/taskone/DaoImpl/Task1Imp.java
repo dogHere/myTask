@@ -66,10 +66,10 @@ public class Task1Imp implements Task1Dao {
     }
 
     @Override
-    public User findUserByAge(Integer age){
-        Query query = new Query(Criteria.where("age").is(age));
-        User user = mongoTemplate.findOne(query,User.class);
-        return user;
+    public List<User> findUserByAge(Integer age1,Integer age2){
+        Query query = new Query(Criteria.where("age").lt(age2).gt(age1));
+        List<User> users = mongoTemplate.find(query, User.class);
+        return users;
     }
 
     @Override
