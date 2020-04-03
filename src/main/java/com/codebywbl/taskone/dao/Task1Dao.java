@@ -6,8 +6,12 @@ package com.codebywbl.taskone.dao;/*
 
 import com.codebywbl.taskone.bean.User;
 
-public interface UserDao {
+public interface Task1Dao {
     public void insertUser(User user);
     public User findUserById(String id);
     public int updateUser(User user);
+    public User findUserByName(String name);
+    public User findUserByAge(Integer age);
+    public User findUserByHobby(String hobby);
+    public User findUserByDescription(String name,String val);
 }

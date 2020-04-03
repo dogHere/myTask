@@ -4,16 +4,17 @@ package com.codebywbl.taskone.service;/*
     @description:
 */
 
-import com.codebywbl.taskone.DaoImpl.UserImp;
+import com.codebywbl.taskone.DaoImpl.Task1Imp;
 import com.codebywbl.taskone.bean.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Service
-public class UserService {
+public class Task1Service {
     @Autowired
-    private UserImp userImp;
+    private Task1Imp userImp;
 
     public void insertUser(User user) {
         userImp.insertUser(user);
@@ -40,4 +41,6 @@ public class UserService {
     public User findUserByDescription(String name,String val){
         return userImp.findUserByDescription(name,val);
     }
+
+
 }

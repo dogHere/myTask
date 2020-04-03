@@ -5,23 +5,24 @@ package com.codebywbl.taskone.controller;/*
 */
 
 import com.codebywbl.taskone.bean.User;
-import com.codebywbl.taskone.service.UserService;
+import com.codebywbl.taskone.service.Task1Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @RestController
-public class UserController {
+public class Task1Controller {
     @Autowired
-    UserService userService;
+    Task1Service task1Service;
 
     @RequestMapping(value = "/insertUser",method = RequestMethod.POST)
     public User insertUser(HttpServletRequest request) {
         User user = new User();
         user = getUser(request, user);
-        userService.insertUser(user);
+        task1Service.insertUser(user);
         return user;
     }
     //将前台数据封装到对应的javabean
@@ -74,29 +75,29 @@ public class UserController {
     @RequestMapping(value = "/findUserById",method = RequestMethod.GET)
     public User findUserById(@RequestParam(value = "id") String id) {
         System.out.println(id);
-        return userService.findUserById(id);
+        return task1Service.findUserById(id);
     }
 
     @RequestMapping(value = "/updateUser",method = RequestMethod.POST)
     public int updateUser(HttpServletRequest request) {
         User user = new User();
         user = getUser(request,user);
-        return userService.updateUser(user);
+        return task1Service.updateUser(user);
     }
 
     @RequestMapping(value = "/findUserByName",method = RequestMethod.GET)
     public User findUserByName(@RequestParam("name") String name){
-        return userService.findUserByName(name);
+        return task1Service.findUserByName(name);
     }
 
     @RequestMapping(value = "/findUserByAge",method = RequestMethod.GET)
     public User findUserByAge(@RequestParam("age") Integer age){
-        return userService.findUserByAge(age);
+        return task1Service.findUserByAge(age);
     }
 
     @RequestMapping(value = "/findUserByHobby",method = RequestMethod.GET)
     public User findUserByHobby(@RequestParam("hobby") String hobby){
-        return userService.findUserByHobby(hobby);
+        return task1Service.findUserByHobby(hobby);
     }
 
     @RequestMapping(value = "/description",method = RequestMethod.GET)
@@ -107,13 +108,8 @@ public class UserController {
             name = names.nextElement();
         }
         String val = request.getParameter(name);
-        return userService.findUserByDescription(name,val);
+        return task1Service.findUserByDescription(name,val);
     }
 
-    //异常调试方法
-    @RequestMapping("/test")
-    public void test(){
-        int i = 10 / 0;
-    }
 
 }
