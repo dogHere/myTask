@@ -25,11 +25,6 @@ public class Task2Controller {
     Task2Service task2Service;
 
     /*Task2*/
-    //异常调试方法
-    @RequestMapping("/test")
-    public void test(){
-        int i = 10 / 0;
-    }
 
     //在index.ftl页面加载完成之后，通过ajax发送请求，获取信息
     @RequestMapping("/index1")

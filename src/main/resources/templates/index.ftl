@@ -286,7 +286,7 @@
         var temp = $("#user_add_description").val();
         var rex = new RegExp(/([\u4E00-\u9FA5A-Za-z0-9_]+:[\u4E00-\u9FA5A-Za-z0-9_]+;)+/)
         if(!rex.test(temp)){
-            $("#error_add_tip").css("color","red").html("description格式错误！请重新输入！");
+            $("#error_add_tip").css("color","red").html("description格式错误！请重新输入！格式为：填入格式:key1:value1;key2:value2;....");
             return;
         }else{
             $("#error_add_tip").html("");

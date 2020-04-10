@@ -24,5 +24,4 @@ public class User {
     private String address;
     private String[] hobby;
     private Map<Object,Object> description;
-
 }
