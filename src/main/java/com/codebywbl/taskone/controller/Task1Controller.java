@@ -19,9 +19,9 @@ import java.util.*;
 @RestController
 public class Task1Controller {
     @Autowired
-    Task1Service task1Service;
+    Task1Service task1Service;// todo 这里应该用private
 
-    //异常调试方法
+    //异常调试方法// todo 异常不是这样做的，是要在代码实现的位置处理异常，而不是写一个全局异常处理方法，因为不同情况下异常应该有不同处理方法
     @RequestMapping(value = "/test",method = RequestMethod.GET)
     @ApiOperation("全局异常捕获测试")
     public void test(){
@@ -31,12 +31,14 @@ public class Task1Controller {
     @ApiOperation("添加用户")
     @ApiImplicitParam(name = "request",value = "获取前提交的数据")
     @RequestMapping(value = "/insertUser",method = RequestMethod.POST)
-    public User insertUser(HttpServletRequest request) {
+    public User insertUser(HttpServletRequest request) {//todo 不要这样直接getUser，因为这里面有非常多的容错处理你没做，了解下@RequestBody
         User user = new User();
         user = getUser(request, user);
-        task1Service.insertUser(user);
-        return user;
+        task1Service.insertUser(user);// todo 这里insertUser应该返回是否insert成功的，另外这里有可能抛异常，要处理
+        return user; // todo 题目要求返回特定的Response方式，这里不合格
     }
+
+    // todo util类方法应该抽出来放在其他位置。
     //将前台数据封装到对应的javabean(由于存在map等集合类型数据，不能完成自动映射)
     //该段代码意为：非基本字段（id,name,age,address,hobby）的数据，都认为是对象description属性(map)中的数据
     private User getUser(HttpServletRequest request, User user) {
@@ -61,6 +63,7 @@ public class Task1Controller {
             }else if (user.getAddress() == null && "address".equals(temp)){//设置address
                 user.setAddress(map.get("address")[0]);
             }else if (user.getHobby() == null && "hobby".equals(temp)){  //设置hobby
+                // todo 这是手动解析request吗？
                 String hobby = map.get("hobby")[0];
                 String[] hobbies = null;
                 //字符串拆分
@@ -90,8 +93,8 @@ public class Task1Controller {
     @ApiImplicitParam(name = "id",value = "要查找的用户的id")
     @RequestMapping(value = "/findUserById",method = RequestMethod.GET)
     public User findUserById(@RequestParam(value = "id") String id) {
-        System.out.println(id);
-        return task1Service.findUserById(id);
+        System.out.println(id);// todo 这里日志打印不好直接调用System.out.println方法，要调用特定的日志打印方法
+        return task1Service.findUserById(id);// todo 题目要求返回特定的Response方式，这里不合格
     }
 
     //根据用户id，去更改数据库中id为对应值数据
@@ -99,7 +102,7 @@ public class Task1Controller {
     @ApiImplicitParam(name = "request",value = "获取前台提交的数据，根据数据中的id找到要修改的用户，然后修改",dataType = "String")
     @RequestMapping(value = "/updateUser",method = RequestMethod.POST)
     public int updateUser(HttpServletRequest request) {
-        User user = new User();
+        User user = new User();// todo 问题同上
         user = getUser(request,user);
         return task1Service.updateUser(user);
     }

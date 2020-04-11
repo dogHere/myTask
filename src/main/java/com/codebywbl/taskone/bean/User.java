@@ -23,5 +23,5 @@ public class User {
     private int age;
     private String address;
     private String[] hobby;
-    private Map<Object,Object> description;
+    private Map<Object,Object> description;// todo 建议换成Map<String,Object> description
 }
